@@ -60,7 +60,9 @@ define vhosts::host  ( $ip = "*", $port = "80" , $serveradmin = "root@localhost"
 	if $createroot == 'yes' {
 		# Recurse apparently doesn't work 
 
-		exec{"/bin/mkdir -p $documentroot":}
+		exec{"/bin/mkdir -p $documentroot":
+  			unless => "/usr/bin/test -d $documentroot",
+		}
 			
 		
   		file { "$documentroot":
